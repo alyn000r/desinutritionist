@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
-import homeReducer from './home';
+import { combineReducers } from 'redux'
+import todos from './todos'
+import visibilityFilter from './visibilityFilter'
 
-const desiNutritionistApp = combineReducers({
-  homeReducer
-});
+const todoApp = combineReducers({
+  todos,
+  visibilityFilter
+})
 
-export default desiNutritionistApp
+export default todoApp
