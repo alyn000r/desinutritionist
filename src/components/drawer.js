@@ -10,9 +10,10 @@ export default class MyDrawer extends  React.Component {
   }
 
   render() {
+    const { isDrawerOpen } = this.props;
     return (
       <div>
-        <Drawer open={this.props.isDrawerOpen}>
+        <Drawer open={isDrawerOpen}>
           <MenuItem>Sign In</MenuItem>
           <MenuItem>Feedback</MenuItem>
         </Drawer>

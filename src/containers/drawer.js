@@ -4,14 +4,13 @@ import { toggleDrawer } from '../actions/actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...state,
-    isDrawerOpen: ownProps.isDrawerOpen
+    isDrawerOpen: state.homeReducer.isDrawerOpen
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    ...dispatch
+
   }
 }
 

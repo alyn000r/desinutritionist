@@ -1,6 +1,8 @@
-const homeReducer = (state = {
+const initialState = {
   isDrawerOpen: false
-}, action) => {
+}
+
+const homeReducer = (state = initialState , action) => {
   switch (action.type) {
     case 'TOGGLE_DRAWER':
       return Object.assign ({}, state, {
