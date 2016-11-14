@@ -9,6 +9,16 @@ export default class MyDrawer extends  React.Component {
     super(props);
   }
 
+  onToggleDrawer() {
+    return () => {
+      this.toggleDrawer();
+    };
+  }
+
+  toggleDrawer() {
+    this.props.toggleDrawer();
+  }
+
   render() {
     const { isDrawerOpen } = this.props;
     return (
@@ -16,6 +26,7 @@ export default class MyDrawer extends  React.Component {
         <Drawer open={isDrawerOpen}>
           <MenuItem>Sign In</MenuItem>
           <MenuItem>Feedback</MenuItem>
+          <MenuItem onTouchTap={this.onToggleDrawer()}>Close Menu</MenuItem>
         </Drawer>
       </div>
     )
@@ -23,5 +34,6 @@ export default class MyDrawer extends  React.Component {
 }
 
 MyDrawer.propTypes = {
-  isDrawerOpen: PropTypes.bool.isRequired
-}
+  isDrawerOpen: PropTypes.bool.isRequired,
+  toggleDrawer: PropTypes.func.isRequired
+};

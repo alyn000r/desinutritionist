@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { default as Component} from '../components/drawer';
+import { default as Component} from '../components/appBar';
 
 const mapStateToProps = (state) => {
   return {
-    isDrawerOpen: state.homeReducer.isDrawerOpen
   }
 };
 
@@ -15,8 +14,8 @@ const mapDispatchToProps = (dispatch) => {
       });
     }
   }
-}
+};
 
-const MyDrawer = connect(mapStateToProps, mapDispatchToProps)(Component);
+const MyAppBar = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export default MyDrawer
+export default MyAppBar

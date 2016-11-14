@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import HorizontalLinearStepper from '../components/horizontalStepper';
-import FlatButton from 'material-ui/FlatButton';
+import MyHorizontalStepper from '../containers/horizontalStepper';
 import MyDrawer from '../containers/drawer';
 import {deepOrange500} from 'material-ui/styles/colors';
+import MyAppBar from '../containers/appBar';
 
 const styles = {
   container: {
@@ -16,7 +15,7 @@ const styles = {
   },
   title: {
     cursor: 'pointer',
-  },
+  }
 };
 
 const muiTheme = getMuiTheme({
@@ -37,11 +36,8 @@ class Main extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={styles.container}>
           <MyDrawer/>
-          <AppBar
-            title={<span style={styles.title}>Meal Plan For Today</span>}
-            iconElementRight={<FlatButton label="Refresh" onTouchTap={this.refreshAllFoods} />}
-          />
-          <HorizontalLinearStepper />
+          <MyAppBar/>
+          <MyHorizontalStepper/>
           </div>
       </MuiThemeProvider>
     );
