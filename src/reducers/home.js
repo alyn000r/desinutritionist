@@ -1,8 +1,22 @@
 const initialState = {
   isDrawerOpen: false,
   finished: false,
-  stepIndex: 0
+  stepIndex: 0,
+  setup: getInitialSetup()
 };
+
+function getInitialSetup() {
+  return {
+    age: null,
+    weight: null,
+    height: null,
+    gender: 'male',
+    activityLevel: 'sedentary',
+    goal: 'lose',
+    mealsPerDay: 1,
+    vegetarian: 'yes'
+  }
+}
 
 const homeReducer = (state = initialState , action) => {
   switch (action.type) {

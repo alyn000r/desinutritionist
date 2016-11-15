@@ -5,7 +5,8 @@ import { default as Component} from '../components/horizontalStepper';
 const mapStateToProps = (state) => {
   return {
     finished: state.homeReducer.finished,
-    stepIndex: state.homeReducer.stepIndex
+    stepIndex: state.homeReducer.stepIndex,
+    setup: state.homeReducer.setup
   }
 };
 

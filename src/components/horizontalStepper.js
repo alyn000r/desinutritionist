@@ -6,9 +6,9 @@ import {
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import MyTextField from './textField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import MySelectField from './selectField';
+import TextField from 'material-ui/TextField';
 
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
@@ -20,6 +20,20 @@ export default class HorizontalLinearStepper extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.setup = {};
+    this.setup.age = this.props.setup.age ? this.props.setup.age : '';
+    this.setup.height = this.props.setup.height ? this.props.setup.height : '';
+    this.setup.weight = this.props.setup.weight ? this.props.setup.weight : '';
+    this.setup.gender = this.props.setup.gender;
+    this.setup.activityLevel = this.props.setup.activityLevel;
+    this.setup.goal = this.props.setup.goal;
+    this.setup.mealsPerDay = this.props.setup.mealsPerDay;
+    this.setup.vegetarian = this.props.setup.vegetarian;
   }
 
   onHandleNext() {
@@ -60,6 +74,43 @@ export default class HorizontalLinearStepper extends React.Component {
     return menu;
   }
 
+
+  stepOneContent() {
+    const styles = {
+      selectField: {
+        textAlign: 'left',
+        margin: '20px 0px'
+      }
+    };
+    const mealsArray = [1,2,3,4,5];
+    return (
+      <div>
+        <h1>How many meals do you eat per day ?</h1>
+        <div style={styles.selectField}>
+          <MySelectField floatingLabel="Meals Per Day" menu={this.createActivityMenu(mealsArray)} fullWidth={true} />
+        </div>
+      </div>
+    )
+  }
+
+  stepThreeContent() {
+    const styles = {
+      selectField: {
+        textAlign: 'left',
+        margin: '20px 0px'
+      }
+    };
+    const preference = ['Yes', 'No'];
+    return (
+      <div>
+        <h1>Are you a vegetarian ?</h1>
+        <div style={styles.selectField}>
+          <MySelectField floatingLabel="Vegetarian" menu={this.createActivityMenu(preference)} fullWidth={true} />
+        </div>
+      </div>
+    )
+  }
+
   stepZeroContent() {
 
     const styles = {
@@ -98,7 +149,11 @@ export default class HorizontalLinearStepper extends React.Component {
     return (
       <div>
         <div style={styles.textFieldContainer}>
-          <MyTextField fullWidth={true} hintText = 'Age'/>
+          <TextField
+            hintText='Age'
+            errorText={null}
+            fullWidth={true}
+          />
         </div>
         <div>
           <div style={styles.gender}>
@@ -118,10 +173,18 @@ export default class HorizontalLinearStepper extends React.Component {
           </RadioButtonGroup>
         </div>
         <div style={styles.textFieldContainer}>
-          <MyTextField fullWidth={true} hintText = 'Weight in lb'/>
+          <TextField
+            hintText='Weight in lb'
+            errorText={null}
+            fullWidth={true}
+          />
         </div>
         <div style={styles.textFieldContainer}>
-          <MyTextField fullWidth={true} hintText = 'Height in cm'/>
+          <TextField
+            hintText='Height in cm'
+            errorText={null}
+            fullWidth={true}
+          />
         </div>
         <div style={styles.textFieldContainer}>
           <MySelectField floatingLabel="Activity Level" menu={this.createActivityMenu(activityMenuArray)} fullWidth={true} />
@@ -147,9 +210,9 @@ export default class HorizontalLinearStepper extends React.Component {
       case 0:
         return this.stepZeroContent();
       case 1:
-        return 'How many meals per day ?';
+        return this.stepOneContent();
       case 2:
-        return 'Are you a vegetarian ?';
+        return this.stepThreeContent();
       default:
         return 'You\'re a long way from home sonny jim!';
     }
@@ -196,7 +259,7 @@ export default class HorizontalLinearStepper extends React.Component {
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
-                  label={stepIndex === 2 ? 'Finish' : 'Next'}
+                  label={stepIndex === 2 ? 'Tell me what to eat' : 'Next'}
                   primary={true}
                   onTouchTap={this.onHandleNext()}
                 />
@@ -211,5 +274,6 @@ export default class HorizontalLinearStepper extends React.Component {
 
 HorizontalLinearStepper.propTypes = {
   finished: PropTypes.bool.isRequired,
-  stepIndex: PropTypes.number.isRequired
+  stepIndex: PropTypes.number.isRequired,
+  setup: PropTypes.object.isRequired
 };

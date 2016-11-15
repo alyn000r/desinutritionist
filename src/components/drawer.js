@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
 
 export default class MyDrawer extends  React.Component {
 
@@ -26,6 +27,7 @@ export default class MyDrawer extends  React.Component {
         <Drawer open={isDrawerOpen}>
           <MenuItem>Sign In</MenuItem>
           <MenuItem>Feedback</MenuItem>
+          <Divider />
           <MenuItem onTouchTap={this.onToggleDrawer()}>Close Menu</MenuItem>
         </Drawer>
       </div>
