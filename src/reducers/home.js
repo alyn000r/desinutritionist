@@ -2,7 +2,8 @@ const initialState = {
   isDrawerOpen: false,
   finished: false,
   stepIndex: 0,
-  setup: getInitialSetup()
+  setup: getInitialSetup(),
+  displayRecipe: false
 };
 
 function getInitialSetup() {
@@ -33,8 +34,12 @@ const homeReducer = (state = initialState , action) => {
         stepIndex: state.stepIndex - 1
       });
     case 'FINISH_SETUP':
+    return Object.assign ({}, state, {
+      finished: true
+    });
+    case 'DISPLAY_RECIPE':
       return Object.assign ({}, state, {
-        finished: true
+        displayRecipe: true
       });
     default:
       return state

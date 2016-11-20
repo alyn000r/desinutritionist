@@ -6,3 +6,26 @@ body {
   font-size: 13px;
   line-height: 20px;
 }
+
+.meal-list-tabs {
+  margin-top: 1%;
+  margin-left: 2%;
+}
+
+.card-container {
+  margin-top: 1%;
+  margin-bottom: 10%;
+}
+.pie-chart-container {
+  margin-top: 20px;
+  width:50%;
+  margin-left:30%;
+}
+
+.nutrition-summary-container {
+  text-align: center;
+}
+
+.meal-tabs {
+  background-color: #34495e;
+}

@@ -9,6 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import MySelectField from './selectField';
 import TextField from 'material-ui/TextField';
+import MealList from '../containers/mealList';
+import Recipe from '../containers/recipe';
 
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
@@ -57,7 +59,7 @@ export default class HorizontalLinearStepper extends React.Component {
   }
 
   handlePrev() {
-    if(this.props.stepIndex > 0) {
+    if (this.props.stepIndex > 0) {
       this.props.handlePrev();
     }
     return;
@@ -65,9 +67,9 @@ export default class HorizontalLinearStepper extends React.Component {
 
   createActivityMenu(items) {
     const menu = [];
-    for(let i= 0, len = items.length; i < len ; i++) {
+    for (let i = 0, len = items.length; i < len; i++) {
       let menuItem = {};
-      menuItem.value = i+1;
+      menuItem.value = i + 1;
       menuItem.primaryText = items[i];
       menu.push(menuItem);
     }
@@ -82,12 +84,12 @@ export default class HorizontalLinearStepper extends React.Component {
         margin: '20px 0px'
       }
     };
-    const mealsArray = [1,2,3,4,5];
+    const mealsArray = [1, 2, 3, 4, 5];
     return (
       <div>
         <h1>How many meals do you eat per day ?</h1>
         <div style={styles.selectField}>
-          <MySelectField floatingLabel="Meals Per Day" menu={this.createActivityMenu(mealsArray)} fullWidth={true} />
+          <MySelectField floatingLabel="Meals Per Day" menu={this.createActivityMenu(mealsArray)} fullWidth={true}/>
         </div>
       </div>
     )
@@ -105,7 +107,7 @@ export default class HorizontalLinearStepper extends React.Component {
       <div>
         <h1>Are you a vegetarian ?</h1>
         <div style={styles.selectField}>
-          <MySelectField floatingLabel="Vegetarian" menu={this.createActivityMenu(preference)} fullWidth={true} />
+          <MySelectField floatingLabel="Vegetarian" menu={this.createActivityMenu(preference)} fullWidth={true}/>
         </div>
       </div>
     )
@@ -187,18 +189,26 @@ export default class HorizontalLinearStepper extends React.Component {
           />
         </div>
         <div style={styles.textFieldContainer}>
-          <MySelectField floatingLabel="Activity Level" menu={this.createActivityMenu(activityMenuArray)} fullWidth={true} />
+          <MySelectField floatingLabel="Activity Level" menu={this.createActivityMenu(activityMenuArray)}
+                         fullWidth={true}/>
         </div>
         <div style={styles.textFieldContainer}>
-          <MySelectField floatingLabel="Goal" menu={this.createActivityMenu(goalsActivityArray)} fullWidth={true} />
+          <MySelectField floatingLabel="Goal" menu={this.createActivityMenu(goalsActivityArray)} fullWidth={true}/>
         </div>
         <div style={styles.explanationHeader}>
           <h2>Lose Maintain or Gain</h2>
           <p>This calculator gives you the ability to adjust your TDEE and macros at 3 different goal settings.</p>
           <ul style={styles.li}>
-            <li style={styles.li}><strong>Lose</strong> puts you in a 20% calorie deficit which promotes safe, steady weight loss.</li>
-            <li style={styles.li}><strong>Maintain</strong> allows you to eat at macro levels that will keep you at your current weight.</li>
-            <li style={styles.li}><strong>Gain</strong> puts you in a 20% calorie surplus and is designed for people who are wanting to build muscle fast in conjunction with a comprehensive weight training program. It can also be used by people who are underweight.</li>
+            <li style={styles.li}><strong>Lose</strong> puts you in a 20% calorie deficit which promotes safe, steady
+              weight loss.
+            </li>
+            <li style={styles.li}><strong>Maintain</strong> allows you to eat at macro levels that will keep you at your
+              current weight.
+            </li>
+            <li style={styles.li}><strong>Gain</strong> puts you in a 20% calorie surplus and is designed for people who
+              are wanting to build muscle fast in conjunction with a comprehensive weight training program. It can also
+              be used by people who are underweight.
+            </li>
           </ul>
         </div>
       </div>
@@ -219,9 +229,30 @@ export default class HorizontalLinearStepper extends React.Component {
   }
 
   render() {
-    const {finished, stepIndex} = this.props;
-    const contentStyle = {margin: '0 16px'};
+    const {displayRecipe, finished, stepIndex} = this.props;
 
+    if (displayRecipe) {
+      return (this.displayRecipe());
+    }
+
+    else if (finished) {
+      return this.displayMealList();
+    }
+    else {
+      return this.displayHorizontalStepper(stepIndex);
+    }
+  }
+
+  displayMealList() {
+    return (<MealList />)
+  }
+
+  displayRecipe() {
+    return (<Recipe />)
+  }
+
+  displayHorizontalStepper(stepIndex) {
+    const contentStyle = { margin: '0 16px' };
     return (
       <div style={{width: '100%', maxWidth: 1000, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
@@ -236,39 +267,25 @@ export default class HorizontalLinearStepper extends React.Component {
           </Step>
         </Stepper>
         <div style={contentStyle}>
-          {finished ? (
-            <p>
-              <a
-                href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  //TODO: Add method to go to the food screen
-                }}
-              >
-                Plan My Meals
-              </a>
-            </p>
-          ) : (
-            <div>
-              <div>{this.getStepContent(stepIndex)}</div>
-              <div style={{marginTop: 12}}>
-                <FlatButton
-                  label="Back"
-                  disabled={stepIndex === 0}
-                  onTouchTap={this.onHandlePrev()}
-                  style={{marginRight: 12}}
-                />
-                <RaisedButton
-                  label={stepIndex === 2 ? 'Tell me what to eat' : 'Next'}
-                  primary={true}
-                  onTouchTap={this.onHandleNext()}
-                />
-              </div>
+          <div>
+            <div>{this.getStepContent(stepIndex)}</div>
+            <div style={{marginTop: 12}}>
+              <FlatButton
+                label="Back"
+                disabled={stepIndex === 0}
+                onTouchTap={this.onHandlePrev()}
+                style={{marginRight: 12}}
+              />
+              <RaisedButton
+                label={stepIndex === 2 ? 'Tell me what to eat' : 'Next'}
+                primary={true}
+                onTouchTap={this.onHandleNext()}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
-    );
+    )
   }
 }
 

@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
   return {
     finished: state.homeReducer.finished,
     stepIndex: state.homeReducer.stepIndex,
-    setup: state.homeReducer.setup
+    setup: state.homeReducer.setup,
+    displayRecipe: state.homeReducer.displayRecipe
   }
 };
 
